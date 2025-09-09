@@ -1,0 +1,13 @@
+<h1>welcome to Bookers !!</h1>
+<p>
+  Share your favorite books!
+</p>
+
+<div style="margin-top: 20px;">
+  <% if user_signed_in? %>
+    <%= link_to "Go to My Page", user_path(current_user), class: "btn btn-info" %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary", style: "margin-right: 10px;" %>
+    <%= link_to "Log in", new_user_session_path, class: "btn btn-success" %>
+  <% end %>
+</div>

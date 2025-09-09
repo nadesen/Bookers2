@@ -1,0 +1,35 @@
+<h2>User info</h2>
+<div class="user-info-box">
+  <% if current_user %>
+    <% if current_user.profile_image.attached? %>
+      <%= image_tag current_user.profile_image.variant(resize_to_limit: [100, 100]), alt: current_user.name, class: "user-image" %>
+    <% else %>
+      <%= image_tag "no_image.jpg", alt: "No image", class: "user-image" %>
+    <% end %>
+
+    <p>
+      <strong>Name:</strong>
+      <%= current_user.name %>
+    </p>
+    <p>
+      <strong>Introduction:</strong>
+      <%= current_user.introduction.presence %>
+    </p>
+
+    <%= link_to "User edit ⚙", edit_user_path(current_user), class: "btn btn-secondary" %>
+  <% else %>
+    <p>Please log in.</p>
+  <% end %>
+</div>
+
+
+<h2>New book</h2>
+<%= form_with model: Book.new do |f| %>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+  
+  <h4>Opinion</h4>
+  <%= f.text_area :body %>
+  
+  <%= f.submit 'Create Book' %>
+<% end %>
