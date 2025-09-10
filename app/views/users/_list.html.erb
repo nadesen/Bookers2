@@ -1,22 +1,24 @@
 <h2>User info</h2>
 <div class="user-info-box">
-  <% if current_user %>
-    <% if current_user.profile_image.attached? %>
-      <%= image_tag current_user.profile_image.variant(resize_to_limit: [100, 100]), alt: current_user.name, class: "user-image" %>
+  <% if user %>
+    <% if user.profile_image.attached? %>
+      <%= image_tag user.profile_image.variant(resize_to_limit: [100, 100]), alt: user.name, class: "user-image" %>
     <% else %>
       <%= image_tag "no_image.jpg", alt: "No image", class: "user-image" %>
     <% end %>
 
     <p>
       <strong>Name:</strong>
-      <%= current_user.name %>
+      <%= user.name %>
     </p>
     <p>
       <strong>Introduction:</strong>
-      <%= current_user.introduction.presence %>
+      <%= user.introduction.presence %>
     </p>
 
-    <%= link_to "User edit ⚙", edit_user_path(current_user), class: "btn btn-secondary" %>
+    <%= link_to edit_user_path(user), class: "btn btn-secondary btn-block" do %>
+      <i class="fa-solid fa-user-gear"></i>
+    <% end %>
   <% else %>
     <p>Please log in.</p>
   <% end %>
