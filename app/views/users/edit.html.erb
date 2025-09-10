@@ -3,20 +3,40 @@
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <div class="user-edit">
         <h2>User info</h2>
+
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <span style="color: red; font-weight: bold;"><%= @user.errors.count %> errors prohibited this user from being saved:</span>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
         <%= form_with model: @user, local: true do |f| %>
-          <label>Name</label>
-          <%= f.text_field :name %>
+          <div class="form-group">
+            <label>Name</label>
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
 
-          <label>Image</label>
-          <%= f.file_field :profile_image, accept: "image/*" %>
+          <div class="form-group">
+            <label>Image</label>
+            <%= f.file_field :profile_image, accept: "image/*", class: "form-control-file" %>
+          </div>
 
-          <label>Introduction</label>
-          <%= f.text_area :introduction %>
-          <%= f.submit 'Update User' %>
+          <div class="form-group">
+            <label>Introduction</label>
+            <%= f.text_area :introduction, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit 'Update User', class: "btn btn-secondary" %>
+          </div>
         <% end %>
         <%= link_to 'Back', users_path %>
       </div>
-
     </div>
   </div>
 </div>

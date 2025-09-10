@@ -12,7 +12,6 @@ class UsersController < ApplicationController
     # @user = User.find(params[:id]) ← set_userでセット済
     @books = @user.books
     @book = Book.new
-    @user = current_user
   end
 
   def edit
@@ -21,8 +20,10 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_path(@user), notice: "You have updated user successfully."
+      flash[:notice] = "You have updated user successfully."
+      redirect_to user_path(@user)
     else
+      flash.now[:alert] = "Error: Unable to update user."
       render :edit
     end
   end
