@@ -1,0 +1,59 @@
+<% content_for :title, @group.name %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>Group info</h2>
+      <table class="table">
+        <tr>
+          <td>Name</td>
+          <td><%= @group.name %></td>
+        </tr>
+        <tr>
+          <td>Introduction</td>
+          <td><%= @group.introduction %></td>
+        </tr>
+        <tr>
+          <td>Owner</td>
+          <td><%= link_to @group.owner.name, user_path(@group.owner) %></td>
+        </tr>
+        <tr>
+          <td>Members</td>
+          <td><%= @group.members.count %></td>
+        </tr>
+      </table>
+      
+      <% if @group.owner == current_user %>
+        <div class="row">
+          <%= link_to "Edit", edit_group_path(@group), class: "btn btn-sm btn-success btn-block mb-3" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="col-md-8 offset-md-1">
+      <h2>Members</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @members.each do |member| %>
+            <tr>
+              <td>
+                <%= link_to user_path(member) do %>
+                  <%= image_tag 'no_image.jpg', size: "50x50" %>
+                <% end %>
+              </td>
+              <td><%= link_to member.name, user_path(member) %></td>
+              <td></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

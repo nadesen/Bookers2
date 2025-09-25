@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:name]
   has_many :books, dependent: :destroy
+  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id', dependent: :destroy
+  has_many :group_members, dependent: :destroy
+  has_many :groups, through: :group_members
   validates :name, presence: true, uniqueness: true ,length: { minimum: 2, maximum: 20 }
   validates :introduction, length: { maximum: 50 }
   has_one_attached :profile_image
